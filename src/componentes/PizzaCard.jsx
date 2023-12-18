@@ -1,29 +1,34 @@
-import React from 'react'
+import React, { useContext } from 'react';
 import {Button, Card} from 'react-bootstrap';
-import {useNavigate}  from 'react-router-dom';
+import {useNavigate, }  from 'react-router-dom';
 import { PizzaContext } from '../context/PizzaContext';
 
+
 const PizzaCard = ({ pizza }) => {
-  const { pizzas, setPizzas, setTotal } = useContext(PizzaContext);
+  const { pizzas, setPizzas, setTotal, handleCarrito } = useContext(PizzaContext);
   const navigate = useNavigate();
+  
 
+  const handleDetalle = () => {
+    navigate(`/detalle/${pizza.id}`);
+  };
+
+  // const handleClick = () => {
+  //   const index = pizzas.findIndex((p) => p.id === pizza.id);
+  //   console.log(index); 
+
+  //   const pizzasCarrito = [...pizzas];
+
+  //   if (typeof pizzasCarrito[index].cantidad !== 'undefined') {
+  //     pizzasCarrito[index].cantidad++;
+  //   } else {
+  //     pizzasCarrito[index].cantidad = 1;
+  //   }
+  //   setPizzas(pizzasCarrito);
+  //   setTotal((prev) => prev + pizza.price);
+  // };
   const handleClick = () => {
-    const index = pizzas.findIndex((p) => p.id === pizza.id);
-    console.log(index); // Corregido aquí
-
-    const pizzasCarrito = [...pizzas];
-
-    if (typeof pizzasCarrito[index].cantidad !== 'undefined') {
-      pizzasCarrito[index].cantidad++;
-    } else {
-      pizzasCarrito[index].cantidad = 1;
-    }
-    setPizzas(pizzasCarrito);
-    setTotal((prev) => prev + pizza.price);
-
-    const handleDetalle = () => {
-      navigate(`/detalle/${pizza.id}`);
-    };
+    handleCarrito(pizza);
   };
 
 
@@ -36,13 +41,14 @@ const PizzaCard = ({ pizza }) => {
       {/* <Card.Text>
         {pizza.desc}
       </Card.Text> */}
-    <div>
-    <Button variant="primary" onClick={handleDetalle}>
+    <div style={{gap:'10px'}}>
+    <Button variant="dark"  style={{marginRight:'10px'}} onClick={handleDetalle}>
             Detalles
           </Button>
-          <Button variant="danger" onClick={handleClick}>
+          <Button variant="danger" onClick={() => handleClick(pizza)}>
             Añadir
-          </Button>
+          </Button> 
+        
         </div>
       </Card.Body>
     </Card>

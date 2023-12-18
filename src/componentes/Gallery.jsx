@@ -7,15 +7,23 @@ const Gallery = () => {
     const { pizzas } = useContext(PizzaContext);
 
   return (
-    <div style={{display:'grid', gridTemplateColumns:'1fr 1fr 1fr 1fr'}}>
-        {
+    <div className='menu'>
+        <div className='tituloMenu'>
+            <h1>Menú pizza </h1>
+        </div>
+        <div className='menuList'>    
+            {
             pizzas.map((p) =>{
-                return
-                //<div key ={data.id}> {pizza.name}</div>
-                <PizzaCard pizza={p} key={p.id}></PizzaCard>
+                return(
+               
+                    <PizzaCard pizza={p} key={p.id}></PizzaCard>
+
+                )
+                
             })
         }
-
+    
+        </div>
     </div>
   )
 }
